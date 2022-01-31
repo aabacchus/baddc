@@ -128,7 +128,11 @@ void power(void) {
 }
 
 void root(void) {
-	push((int)sqrt((double)pop()));
+	int a = pop();
+	if (a < 0) {
+		fprintf(stderr, "root of negative number!\n");
+	}
+	push((int)sqrt((double)a));
 }
 
 struct {
