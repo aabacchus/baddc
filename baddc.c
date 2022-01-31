@@ -1,5 +1,6 @@
 #define _XOPEN_SOURCE 700
 #include <ctype.h>
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -85,6 +86,12 @@ void multiply(void) {
 
 void divide(void) {
 	int div = pop();
+	if (div == 0) {
+		fprintf(stderr, "division by 0!\n");
+		pop();
+		push(0);
+		return;
+	}
 	push(pop() / div);
 }
 
@@ -104,6 +111,25 @@ void O_base(void) {
 	push(obase);
 }
 
+void mod(void) {
+	int a = pop();
+	if (a == 0) {
+		fprintf(stderr, "division by 0!\n");
+		pop();
+		push(0);
+		return;
+	}
+	push(pop() % a);
+}
+
+void power(void) {
+	int a = pop();
+	push((int)pow((double)pop(), (double)a));
+}
+
+void root(void) {
+	push((int)sqrt((double)pop()));
+}
 
 struct map {
 	char op;
@@ -120,6 +146,9 @@ struct map {
 	{ 'I', I_base },
 	{ 'o', o_base },
 	{ 'O', O_base },
+	{ '%', mod },
+	{ '^', power },
+	{ 'v', root },
 };
 
 #define NUM_OPS ((sizeof(ops)) / (sizeof(*ops)))

@@ -2,7 +2,7 @@
 
 BIN = baddc
 SRCS = baddc.c
-XCFLAGS = -Wall -Wextra -pedantic -g
+XCFLAGS = -Wall -Wextra -pedantic -g -lm
 
 $(BIN): $(SRCS)
 	$(CC) $(XCFLAGS) -o $(BIN) $(SRCS)
