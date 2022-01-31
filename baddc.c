@@ -12,6 +12,25 @@ int *stackp = stack - 1;
 int ibase = 10;
 int obase = 10;
 
+void oprint(int a) {
+	char fmt[4] = {'%', 0,  '\n', '\0'};
+	switch (obase) {
+		case 16:
+			fmt[1] = 'X';
+			break;
+		case 10:
+			fmt[1] = 'd';
+			break;
+		case 8:
+			fmt[1] = 'o';
+			break;
+		default:
+			fprintf(stderr, "output base %d not supported!\n", obase);
+			return;
+	}
+	printf(fmt, a);
+}
+
 void push(int a) {
 	stackp++;
 	if (stackp - stack >= STACK_LEN) {
@@ -40,7 +59,7 @@ int peek(void) {
 
 void view_stack(void) {
 	for (int *p = stackp; p - stack >= 0; p--)
-		printf("%d\n", *p);
+		oprint(*p);
 }
 
 void dup(void) {
@@ -146,18 +165,14 @@ int main(int argc, char **argv) {
 				}
 				curnum = 0;
 				if (isspace(buf[i])) {
-					//fprintf(stderr, "space ");
 					continue;
 				} if (isdigit(buf[i])) {
-					//fprintf(stderr, "push('%d') ", buf[i]);
 					push(buf[i] - '0');
 				} else if (buf[i] == 'p') {
-					//fprintf(stderr, "peek ");
-					printf("%d\n", peek());
+					oprint(peek());
 				} else {
 					for (size_t j = 0; j < NUM_OPS; j++) {
 						if (buf[i] == ops[j].op) {
-							//fprintf(stderr, "execute '%c' ", buf[i]);
 							ops[j].f();
 						}
 					}
