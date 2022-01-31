@@ -135,6 +135,9 @@ int main(int argc, char **argv) {
 			else if (isdigit(buf[i])) {
 				curnum = (curnum * ibase) + (buf[i] - '0');
 				numready = 1;
+			} else if (buf[i] >= 'A' && buf[i] <= 'F') {
+				curnum = (curnum * ibase) + (buf[i] - 'A' + 10);
+				numready = 1;
 			} else {
 				if (numready) {
 					push(curnum * neg);
