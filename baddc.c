@@ -131,7 +131,7 @@ void root(void) {
 	push((int)sqrt((double)pop()));
 }
 
-struct map {
+struct {
 	char op;
 	void (*f)(void);
 } ops[] = {
@@ -211,6 +211,8 @@ int main(int argc, char **argv) {
 	}
 end:
 	free(buf);
+	if (fp != stdin)
+		fclose(fp);
 
 	return 0;
 }
