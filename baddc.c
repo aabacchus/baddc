@@ -105,7 +105,18 @@ struct map {
 
 #define NUM_OPS ((sizeof(ops)) / (sizeof(*ops)))
 
-int main(void) {
+int main(int argc, char **argv) {
+	FILE *fp = NULL;
+	if (argc == 1) {
+		fp = stdin;
+	} else {
+		fp = fopen(argv[1], "r");
+		if (fp == NULL) {
+			perror(argv[1]);
+			return 1;
+		}
+	}
+
 	char *buf = NULL;
 	size_t buflen = 0;
 	ssize_t n = 0;
@@ -113,7 +124,7 @@ int main(void) {
 	int curnum = 0;
 	int numready = 0;
 	int neg = 1;
-	while ((n = getline(&buf, &buflen, stdin)) != -1) {
+	while ((n = getline(&buf, &buflen, fp)) != -1) {
 		for (ssize_t i = 0; i < n - 1; i++) {
 			if (buf[i] == 'q')
 				goto end;
