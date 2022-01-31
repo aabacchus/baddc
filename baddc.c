@@ -74,7 +74,7 @@ void i_base(void) {
 }
 
 void I_base(void) {
-	printf("%d\n", ibase);
+	push(ibase);
 }
 
 void o_base(void) {
@@ -82,7 +82,7 @@ void o_base(void) {
 }
 
 void O_base(void) {
-	printf("%d\n", obase);
+	push(obase);
 }
 
 
@@ -114,7 +114,7 @@ int main(void) {
 	int numready = 0;
 	int neg = 1;
 	while ((n = getline(&buf, &buflen, stdin)) != -1) {
-		for (size_t i = 0; i < n - 1; i++) {
+		for (ssize_t i = 0; i < n - 1; i++) {
 			if (buf[i] == 'q')
 				goto end;
 			if (buf[i] == '_')
