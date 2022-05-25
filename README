@@ -50,11 +50,11 @@ DESCRIPTION
 
      i       Use the top value of the stack as the new input base.
 
-     I       Print the current input base.
+     I       Push the current input base.
 
      o       Use the top value of the stack as the new output base.
 
-     O       Print the current output base.
+     O       Push the current output base.
 
      %       Push the second value modulus the second (the remainder after
              division).
