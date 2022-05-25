@@ -1,0 +1,104 @@
+.Dd 25 May, 2022
+.Dt BADDC 1
+.Os "ben's space"
+.Sh NAME
+.Nm baddc
+.Nd integer-precision desk calculator
+.Sh SYNOPSIS
+.Nm
+.Op Ar file
+.Sh DESCRIPTION
+.Nm
+is a simple desk calculator for integer arithmetic.
+It operates on a stack and uses reverse-polish notation, like
+.Xr dc 1 .
+.Pp
+.Nm
+reads lines from
+.Ar file
+or from the standard input if no operands are given,
+and interprets them as follows:
+.Bl -bullet
+.It
+If a hexanumerical number is found, it is pushed onto the stack.
+The number may be composed of the characters 0-9 and A-F
+.Pq but not a-f .
+.It
+If the number is prefixed by
+.Sq _ ,
+the negative of the number is pushed.
+.It
+Whitespace is ignored.
+.It
+If one of the supported operations is found, it is performed.
+.It
+.Nm
+quits on EOF.
+.It
+If a stack overflow or underflow occurs,
+.Nm
+prints a warning.
+.El
+.Pp
+The supported operations are:
+.Bl -tag -width Ds
+.It p
+Print the top value of the stack without popping it off.
+.It f
+Print the contents of the stack, from top to bottom.
+.It d
+Duplicate the top of the stack.
+.It c
+Clear the entire stack.
+.It +
+Pop the top two values on the stack, and push their sum.
+.It -
+Subtract the first value from the second, and push the result.
+.It *
+Multiply the top two values, and push the result.
+.It /
+Divide the second value by the first, and push the result.
+.It i
+Use the top value of the stack as the new input base.
+.It I
+Print the current input base.
+.It o
+Use the top value of the stack as the new output base.
+.It O
+Print the current output base.
+.It %
+Push the second value modulus the second
+.Pq the remainder after division .
+.It ^
+Push the second value raised to the first value.
+.It v
+Push the square root of the first value.
+.It q
+Quit
+.Nm
+immediately.
+.El
+.Sh EXIT STATUS
+The
+.Nm
+utility exits 0 on success, and 1 if the named
+.Ar file
+cannot be opened for reading.
+.Sh SEE ALSO
+.Xr bc 1 ,
+.Xr dc 1
+.Sh BUGS
+Since
+.Nm
+uses integers internally, all the operations perform integer
+.Pq floor
+rounding which may be lossy.
+.Pp
+.Nm
+allows any number to be used as the input base, but only hexadecimal numbers
+.Pq 0-9A-Z
+may be input.
+.Pp
+The only supported values of output base are 8, 10, 16.
+.Sh AUTHORS
+.An phoebos Aq Mt ben@bvnf.space
