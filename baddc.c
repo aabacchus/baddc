@@ -96,7 +96,11 @@ void divide(void) {
 }
 
 void i_base(void) {
-	ibase = pop();
+	int i = pop();
+	if (i > 16 || i < 1)
+		fprintf(stderr, "input base %d not supported!\n", i);
+	else
+		ibase = i;
 }
 
 void I_base(void) {
@@ -104,7 +108,11 @@ void I_base(void) {
 }
 
 void o_base(void) {
-	obase = pop();
+	int o = pop();
+	if (o != 8 || o != 10 || o != 16)
+		fprintf(stderr, "output base %d not supported!\n", o);
+	else
+		obase = o;
 }
 
 void O_base(void) {
@@ -183,7 +191,7 @@ int main(int argc, char **argv) {
 			if (buf[i] == '_')
 				neg = -1;
 			else if (buf[i] == '.')
-				fprintf(stderr, "no floating point please\n");
+				fprintf(stderr, "no floating point please!\n");
 			else if (isdigit(buf[i])) {
 				curnum = (curnum * ibase) + (buf[i] - '0');
 				numready = 1;

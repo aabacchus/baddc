@@ -76,8 +76,7 @@ BUGS
      Since baddc uses integers internally, all the operations perform integer
      (floor) rounding which may be lossy.
 
-     baddc allows any number to be used as the input base, but only
-     hexadecimal numbers (0-9A-Z) may be input.
+     The only supported values of input base are 1-16.
 
      The only supported values of output base are 8, 10, 16.
 
