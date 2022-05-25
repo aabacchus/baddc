@@ -82,6 +82,8 @@ BUGS
 
      The only supported values of output base are 8, 10, 16.
 
+     Signed numbers are only printed correctly with an output base of 10.
+
 AUTHORS
      phoebos <ben@bvnf.space>
 

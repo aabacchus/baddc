@@ -144,7 +144,7 @@ void o_base(void) {
 	}
 
 	int o = pop();
-	if (o != 8 || o != 10 || o != 16)
+	if (o != 8 && o != 10 && o != 16)
 		fprintf(stderr, "output base %d not supported!\n", o);
 	else
 		obase = o;
