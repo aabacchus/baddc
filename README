@@ -13,8 +13,9 @@ DESCRIPTION
      baddc reads lines from file or from the standard input if no operands are
      given, and interprets them as follows:
 
-     o   If a hexanumerical number is found, it is pushed onto the stack.  The
-         number may be composed of the characters 0-9 and A-F (but not a-f).
+     o   If a hexanumerical number is found, it is pushed onto the stack
+         according to the current input base.  The number may be composed of
+         the characters 0-9 and A-F (but not a-f).
 
      o   If the number is prefixed by `_', the negative of the number is
          pushed.
@@ -26,6 +27,8 @@ DESCRIPTION
      o   baddc quits on EOF.
 
      o   If a stack overflow or underflow occurs, baddc prints a warning.
+
+     The input and output bases default to base 10.
 
      The supported operations are:
 

@@ -20,7 +20,8 @@ or from the standard input if no operands are given,
 and interprets them as follows:
 .Bl -bullet
 .It
-If a hexanumerical number is found, it is pushed onto the stack.
+If a hexanumerical number is found, it is pushed onto the stack
+according to the current input base.
 The number may be composed of the characters 0-9 and A-F
 .Pq but not a-f .
 .It
@@ -39,6 +40,8 @@ If a stack overflow or underflow occurs,
 .Nm
 prints a warning.
 .El
+.Pp
+The input and output bases default to base 10.
 .Pp
 The supported operations are:
 .Bl -tag -width Ds
