@@ -58,12 +58,20 @@ int peek(void) {
 	return *stackp;
 }
 
+int stack_len(void) {
+	return 1 + (stackp - stack);
+}
+
 void view_stack(void) {
 	for (int *p = stackp; p - stack >= 0; p--)
 		oprint(*p);
 }
 
 void dup(void) {
+	if (stack_len() < 1) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
 	push(peek());
 }
 
@@ -72,19 +80,36 @@ void clear(void) {
 }
 
 void add(void) {
+	if (stack_len() < 2) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
 	push(pop() + pop());
 }
 
 void subtract(void) {
+	if (stack_len() < 2) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
 	int a = pop();
 	push(-a + pop());
 }
 
 void multiply(void) {
+	if (stack_len() < 2) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
 	push(pop() * pop());
 }
 
 void divide(void) {
+	if (stack_len() < 2) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
+
 	int div = pop();
 	if (div == 0) {
 		fprintf(stderr, "division by 0!\n");
@@ -96,6 +121,11 @@ void divide(void) {
 }
 
 void i_base(void) {
+	if (stack_len() < 1) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
+
 	int i = pop();
 	if (i > 16 || i < 1)
 		fprintf(stderr, "input base %d not supported!\n", i);
@@ -108,6 +138,11 @@ void I_base(void) {
 }
 
 void o_base(void) {
+	if (stack_len() < 1) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
+
 	int o = pop();
 	if (o != 8 || o != 10 || o != 16)
 		fprintf(stderr, "output base %d not supported!\n", o);
@@ -120,6 +155,10 @@ void O_base(void) {
 }
 
 void mod(void) {
+	if (stack_len() < 2) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
 	int a = pop();
 	if (a == 0) {
 		fprintf(stderr, "division by 0!\n");
@@ -131,11 +170,19 @@ void mod(void) {
 }
 
 void power(void) {
+	if (stack_len() < 2) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
 	int a = pop();
 	push((int)pow((double)pop(), (double)a));
 }
 
 void root(void) {
+	if (stack_len() < 1) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
 	int a = pop();
 	if (a < 0) {
 		fprintf(stderr, "root of negative number!\n");
@@ -144,6 +191,10 @@ void root(void) {
 }
 
 void drop(void) {
+	if (stack_len() < 1) {
+		fprintf(stderr, "stack too short!\n");
+		return;
+	}
 	pop();
 }
 
@@ -215,7 +266,10 @@ int main(int argc, char **argv) {
 				} if (isdigit(buf[i])) {
 					push(buf[i] - '0');
 				} else if (buf[i] == 'p') {
-					oprint(peek());
+					if (stack_len() < 1)
+						fprintf(stderr, "stack too short!\n");
+					else
+						oprint(peek());
 				} else {
 					for (size_t j = 0; j < NUM_OPS; j++) {
 						if (buf[i] == ops[j].op) {
