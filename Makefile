@@ -1,13 +1,9 @@
 .POSIX:
 
-BIN = baddc
-SRCS = baddc.c
-XCFLAGS = -Wall -Wextra -pedantic -g -lm
+XCFLAGS = $(CFLAGS) -Wall -Wextra -pedantic -Wno-array-bounds -g
 
-$(BIN): $(SRCS)
-	$(CC) $(XCFLAGS) -o $(BIN) $(SRCS)
+baddc: baddc.c
+	$(CC) $(XCFLAGS) -o $@ baddc.c -lm
 
 clean:
-	rm -f $(BIN)
-
-.PHONY: clean
+	rm -f baddc
