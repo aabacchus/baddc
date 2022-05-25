@@ -143,6 +143,10 @@ void root(void) {
 	push((int)sqrt((double)a));
 }
 
+void drop(void) {
+	pop();
+}
+
 struct {
 	char op;
 	void (*f)(void);
@@ -161,6 +165,7 @@ struct {
 	{ '%', mod },
 	{ '^', power },
 	{ 'v', root },
+	{ 'r', drop },
 };
 
 #define NUM_OPS ((sizeof(ops)) / (sizeof(*ops)))

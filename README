@@ -63,6 +63,8 @@ DESCRIPTION
 
      v       Push the square root of the first value.
 
+     r       Drop the top value of the stack.
+
      q       Quit baddc immediately.
 
 EXIT STATUS
