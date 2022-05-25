@@ -1,0 +1,84 @@
+BADDC(1)                    General Commands Manual                   BADDC(1)
+
+NAME
+     baddc - integer-precision desk calculator
+
+SYNOPSIS
+     baddc [file]
+
+DESCRIPTION
+     baddc is a simple desk calculator for integer arithmetic.  It operates on
+     a stack and uses reverse-polish notation, like dc(1).
+
+     baddc reads lines from file or from the standard input if no operands are
+     given, and interprets them as follows:
+
+     o   If a hexanumerical number is found, it is pushed onto the stack.  The
+         number may be composed of the characters 0-9 and A-F (but not a-f).
+
+     o   If the number is prefixed by `_', the negative of the number is
+         pushed.
+
+     o   Whitespace is ignored.
+
+     o   If one of the supported operations is found, it is performed.
+
+     o   baddc quits on EOF.
+
+     o   If a stack overflow or underflow occurs, baddc prints a warning.
+
+     The supported operations are:
+
+     p       Print the top value of the stack without popping it off.
+
+     f       Print the contents of the stack, from top to bottom.
+
+     d       Duplicate the top of the stack.
+
+     c       Clear the entire stack.
+
+     +       Pop the top two values on the stack, and push their sum.
+
+     -       Subtract the first value from the second, and push the result.
+
+     *       Multiply the top two values, and push the result.
+
+     /       Divide the second value by the first, and push the result.
+
+     i       Use the top value of the stack as the new input base.
+
+     I       Print the current input base.
+
+     o       Use the top value of the stack as the new output base.
+
+     O       Print the current output base.
+
+     %       Push the second value modulus the second (the remainder after
+             division).
+
+     ^       Push the second value raised to the first value.
+
+     v       Push the square root of the first value.
+
+     q       Quit baddc immediately.
+
+EXIT STATUS
+     The baddc utility exits 0 on success, and 1 if the named file cannot be
+     opened for reading.
+
+SEE ALSO
+     bc(1), dc(1)
+
+BUGS
+     Since baddc uses integers internally, all the operations perform integer
+     (floor) rounding which may be lossy.
+
+     baddc allows any number to be used as the input base, but only
+     hexadecimal numbers (0-9A-Z) may be input.
+
+     The only supported values of output base are 8, 10, 16.
+
+AUTHORS
+     phoebos <ben@bvnf.space>
+
+ben's space                      25 May, 2022                      ben's space
