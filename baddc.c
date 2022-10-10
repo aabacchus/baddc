@@ -243,7 +243,7 @@ int main(int argc, char **argv) {
 				curnum = 0;
 				if (isspace(buf[i])) {
 					continue;
-				} if (isdigit(buf[i])) {
+				} else if (isdigit(buf[i])) {
 					push(buf[i] - '0');
 				} else {
 					for (size_t j = 0; j < NUM_OPS; j++) {
