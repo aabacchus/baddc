@@ -69,7 +69,7 @@ void view_stack(void) {
 		oprint(*p);
 }
 
-void dup(void) {
+void duplicate(void) {
 	RETURN_IF_FEWER_THAN(1);
 	push(peek());
 }
@@ -169,7 +169,7 @@ struct {
 	void (*f)(void);
 } ops[] = {
 	{ 'f', view_stack },
-	{ 'd', dup },
+	{ 'd', duplicate },
 	{ 'c', clear },
 	{ '+', add },
 	{ '-', subtract },
