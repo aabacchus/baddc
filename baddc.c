@@ -240,6 +240,7 @@ int main(int argc, char **argv) {
 					for (size_t j = 0; j < NUM_OPS; j++) {
 						if (buf[i] == ops[j].op) {
 							ops[j].f();
+							break;
 						}
 					}
 				}
