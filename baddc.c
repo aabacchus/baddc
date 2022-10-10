@@ -202,8 +202,11 @@ int main(int argc, char **argv) {
 			fprintf(stderr, "%c\n", ops[i].op);
 		return 1;
 	}
+	argc -= optind;
+	argv += optind - 1;
+
 	FILE *fp = NULL;
-	if (argc == 1) {
+	if (argc == 0) {
 		fp = stdin;
 	} else {
 		fp = fopen(argv[1], "r");
