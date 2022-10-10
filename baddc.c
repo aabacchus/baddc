@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define RETURN_IF_FEWER_THAN(n) if (stack_len() < n) { fprintf(stderr, "stack too short!\n"); return; }
 
@@ -194,6 +195,13 @@ struct {
 #define NUM_OPS ((sizeof(ops)) / (sizeof(*ops)))
 
 int main(int argc, char **argv) {
+	int c;
+	while ((c = getopt(argc, argv, ":")) != -1) {
+		fprintf(stderr, "usage: %s [file]\nsupported operations:\n", argv[0]);
+		for (size_t i = 0; i < NUM_OPS; i++)
+			fprintf(stderr, "%c\n", ops[i].op);
+		return 1;
+	}
 	FILE *fp = NULL;
 	if (argc == 1) {
 		fp = stdin;
