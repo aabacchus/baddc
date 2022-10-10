@@ -64,6 +64,11 @@ int stack_len(void) {
 	return 1 + (stackp - stack);
 }
 
+void view_top(void) {
+	RETURN_IF_FEWER_THAN(1);
+	oprint(peek());
+}
+
 void view_stack(void) {
 	for (int *p = stackp; p - stack >= 0; p--)
 		oprint(*p);
@@ -168,6 +173,7 @@ struct {
 	char op;
 	void (*f)(void);
 } ops[] = {
+	{ 'p', view_top },
 	{ 'f', view_stack },
 	{ 'd', duplicate },
 	{ 'c', clear },
@@ -231,11 +237,6 @@ int main(int argc, char **argv) {
 					continue;
 				} if (isdigit(buf[i])) {
 					push(buf[i] - '0');
-				} else if (buf[i] == 'p') {
-					if (stack_len() < 1)
-						fprintf(stderr, "stack too short!\n");
-					else
-						oprint(peek());
 				} else {
 					for (size_t j = 0; j < NUM_OPS; j++) {
 						if (buf[i] == ops[j].op) {
